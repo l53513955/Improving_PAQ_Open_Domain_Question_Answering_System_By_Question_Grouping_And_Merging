@@ -24,7 +24,7 @@ for more indexing information , please refer to https://github.com/facebookresea
 
 
 ## retraining
-從https://github.com/facebookresearch/DPR修改
+從https://github.com/facebookresearch/DPR  修改
 
 ## generate train
 透過retrieve nq train&dev 和trivia train&dev來得到其positive & hard negative sample，並透過"generate_train.ipy"來使其產生train & dev data
@@ -48,7 +48,7 @@ after training  run transfrom_to_albert.ipynb
 
 
 # hybrid retrieval:
-從https://github.com/castorini/pyserini修改
+從https://github.com/castorini/pyserini  修改
 
 ## build BM25 index
 
