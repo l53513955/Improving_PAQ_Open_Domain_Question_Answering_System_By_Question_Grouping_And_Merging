@@ -28,6 +28,7 @@ for more indexing information , please refer to https://github.com/facebookresea
 
 ## generate train
 透過retrieve nq train&dev 和trivia train&dev來得到其positive & hard negative sample，並透過"generate_train.ipy"來使其產生train & dev data
+tips:記得retriever是要用原本PAQ的retriever model:pytorch_model.bin
     python -m paq.retrievers.retrieve     --model_name_or_path ./data/models/retrievers/retriever_multi_base_256     --qas_to_answer data/annotated_datasets/NQ-open.train-train.jsonl      --qas_to_retrieve_from nsc385.jsonl   --top_k 50     --output_file XXX/my_retrieval_results.jsonl --faiss_index_path XXX/my_index.hnsw.faiss     --fp16     --memory_friendly_parsing     --verbose
 
 
@@ -42,4 +43,31 @@ for more indexing information , please refer to https://github.com/facebookresea
 ## transfer model to PAQ model
 after training  run transfrom_to_albert.ipynb 
 就可以得到對應query和ctx的 model，把它們移到PAQ資料夾中的PAQ-main/data/models/retrievers/retriever_multi_base_256/底下
+並修改"PAQ-main/paq/retrievers/retriever_utils.py"中有bin檔的部分(pytorch_model.bin就是原始的PAQ retriever model)(PAQ中query 跟 ctx encoder是一樣的)
 就可以拿來做embed,indexing,retrieval
+
+
+# hybrid retrieval:
+從https://github.com/castorini/pyserini修改
+
+## build BM25 index
+
+run  PAQ-main/transfrom_to_BM25.ipynb to transform to bm25 format
+
+first download javac        
+        sudo apt-get update
+        sudo apt-get install openjdk-11-jdk
+build bm25 index
+        –collection JsonCollection --input bm25/ --index bm25/2_5_bm25 --generator DefaultLuceneDocumentGenerator --threads 1 --storeDocvectors
+        
+## hybrid retrieval
+run BM.ipynb
+即可得到混合排名後的retrieved result，重新 eval retrieved result 一次即可得到最終結果。
+
+
+---------
+global search:
+PAQ/simple_paq_search.ipynb
+
+  
+
