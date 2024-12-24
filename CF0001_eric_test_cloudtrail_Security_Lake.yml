@@ -1,0 +1,13 @@
+title: eric test cloudtrail - Security Lake
+description: ''
+tags: []
+logsource:
+    category: CLOUD_ACTIVITY
+    product: aws
+    definition: AMAZON_SECURITY_LAKE
+detection:
+    filter0:
+        vendorParsed.activity_name: '*Attach Policy*'
+    condition: filter0
+level: medium
+taxonomy: tm-v1
