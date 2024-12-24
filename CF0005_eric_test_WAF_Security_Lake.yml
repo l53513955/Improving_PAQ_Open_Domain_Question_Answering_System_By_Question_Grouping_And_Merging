@@ -1,0 +1,13 @@
+title: eric test WAF - Security Lake
+description: ''
+tags: []
+logsource:
+    category: CLOUD_ACTIVITY
+    product: aws
+    definition: AMAZON_SECURITY_LAKE
+detection:
+    filter0:
+        pname: '*AWS WAF*'
+    condition: filter0
+level: medium
+taxonomy: tm-v1
